@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Abdul Asim — GoHighLevel & n8n Automation Expert</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink: #0E0E16;
+    --surface: #17171F;
+    --surface-2: #1E1E28;
+    --violet: #7C5CFC;
+    --mint: #00E5A0;
+    --ember: #FF5B33;
+    --paper: #F3F2F8;
+    --muted: #8B8A99;
+    --line: #2A2A36;
+    --whatsapp: #25D366;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+
+  html{ scroll-behavior:smooth; }
+
+  body{
+    background:
+      radial-gradient(circle at 1px 1px, rgba(124,92,252,0.16) 1px, transparent 0) 0 0/30px 30px,
+      var(--ink);
+    color:var(--paper);
+    font-family:'Inter', sans-serif;
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+
+  /* scroll reveal */
+  .reveal{ opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease; }
+  .reveal.is-visible{ opacity:1; transform:translateY(0); }
+
+  h1,h2,h3{ font-family:'Space Grotesk', sans-serif; letter-spacing:-0.02em; }
+
+  .mono{ font-family:'JetBrains Mono', monospace; }
+
+  a{ color:inherit; text-decoration:none; }
+
+  .wrap{ max-width:1100px; margin:0 auto; padding:0 32px; }
+
+  /* NAV */
+  nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(14,14,22,0.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  nav .wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    height:72px;
+  }
+  .brand{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:700; font-size:18px;
+    display:flex; align-items:center; gap:8px;
+  }
+  .brand .dot{
+    width:8px; height:8px; border-radius:50%;
+    background:var(--mint);
+    box-shadow:0 0 10px var(--mint);
+    animation:pulse 2s ease-in-out infinite;
+  }
+  .nav-links{ display:flex; gap:32px; align-items:center; }
+  .nav-links a{
+    font-size:14px; color:var(--muted); font-weight:500;
+    transition:color .2s;
+  }
+  .nav-links a:hover, .nav-links a:focus-visible{ color:var(--paper); }
+  .nav-cta{
+    background:var(--violet); color:var(--paper) !important;
+    padding:9px 18px; border-radius:8px; font-size:14px; font-weight:600;
+    transition:transform .15s, box-shadow .15s;
+  }
+  .nav-cta:hover{ transform:translateY(-1px); box-shadow:0 6px 20px rgba(124,92,252,0.4); }
+
+  .nav-toggle{
+    display:none;
+    background:none; border:1px solid var(--line); border-radius:8px;
+    width:38px; height:38px; padding:0; cursor:pointer;
+    flex-direction:column; align-items:center; justify-content:center; gap:4px;
+  }
+  .nav-toggle span{ width:18px; height:2px; background:var(--paper); transition:transform .2s, opacity .2s; }
+  .nav-toggle.open span:nth-child(1){ transform:translateY(6px) rotate(45deg); }
+  .nav-toggle.open span:nth-child(2){ opacity:0; }
+  .nav-toggle.open span:nth-child(3){ transform:translateY(-6px) rotate(-45deg); }
+
+  @media (max-width:760px){
+    .nav-toggle{ display:flex; }
+    .nav-links{
+      position:absolute; top:72px; left:0; right:0;
+      flex-direction:column; align-items:flex-start; gap:0;
+      background:var(--surface);
+      border-bottom:1px solid var(--line);
+      max-height:0; overflow:hidden;
+      transition:max-height .25s ease;
+    }
+    .nav-links.open{ max-height:280px; }
+    .nav-links a{ width:100%; padding:14px 32px; border-top:1px solid var(--line); }
+    .nav-links a.nav-cta{ margin:14px 32px; width:calc(100% - 64px); text-align:center; }
+  }
+
+  @keyframes pulse{
+    0%,100%{ opacity:1; } 50%{ opacity:0.35; }
+  }
+
+  /* HERO */
+  .hero{
+    padding:96px 0 80px;
+    display:grid;
+    grid-template-columns:1.1fr 1fr;
+    gap:48px;
+    align-items:center;
+  }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px; color:var(--mint);
+    border:1px solid rgba(0,229,160,0.3);
+    background:rgba(0,229,160,0.06);
+    padding:6px 12px; border-radius:100px;
+    margin-bottom:24px;
+  }
+  .hero h1{
+    font-size:clamp(32px, 4.2vw, 52px);
+    font-weight:700;
+    line-height:1.08;
+    margin-bottom:20px;
+  }
+  .hero h1 .accent{ color:var(--violet); }
+  .hero p.sub{
+    color:var(--muted);
+    font-size:17px;
+    max-width:480px;
+    margin-bottom:32px;
+  }
+  .cta-row{ display:flex; gap:14px; flex-wrap:wrap; }
+  .btn{
+    padding:13px 24px; border-radius:8px;
+    font-weight:600; font-size:15px;
+    display:inline-flex; align-items:center; gap:8px;
+    transition:transform .15s, box-shadow .15s, background .15s;
+  }
+  .btn-primary{ background:var(--ember); color:#fff; }
+  .btn-primary:hover{ transform:translateY(-2px); box-shadow:0 8px 24px rgba(255,91,51,0.35); }
+  .btn-ghost{
+    border:1px solid var(--line); color:var(--paper);
+    background:var(--surface);
+  }
+  .btn-ghost:hover{ border-color:var(--violet); transform:translateY(-2px); }
+
+  .status-strip{
+    display:flex; gap:28px; margin-top:40px; flex-wrap:wrap;
+    padding-top:24px; border-top:1px solid var(--line);
+  }
+  .status-strip .metric b{
+    display:block; font-family:'Space Grotesk', sans-serif;
+    font-size:22px; color:var(--paper);
+  }
+  .status-strip .metric span{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px; color:var(--muted);
+  }
+
+  /* HERO FLOW DIAGRAM */
+  .flow-card{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:32px 24px 28px;
+    position:relative;
+  }
+  .flow-card .label{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px; color:var(--muted);
+    margin-bottom:22px;
+    display:flex; justify-content:space-between;
+  }
+  .flow-card .label .live{
+    color:var(--mint); display:flex; align-items:center; gap:6px;
+  }
+  .flow-card .live .ldot{
+    width:6px; height:6px; border-radius:50%; background:var(--mint);
+    animation:pulse 1.6s ease-in-out infinite;
+  }
+  .flow-svg{ width:100%; height:auto; display:block; }
+
+  .flow-node-label{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px; fill:var(--muted);
+    text-anchor:middle;
+  }
+  .flow-node-title{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:12.5px; font-weight:600; fill:var(--paper);
+    text-anchor:middle;
+  }
+
+  /* SECTIONS */
+  section{ padding:72px 0; border-top:1px solid var(--line); }
+  .section-tag{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px; color:var(--violet);
+    margin-bottom:12px;
+    display:block;
+  }
+  .section-head h2{
+    font-size:clamp(24px, 3vw, 32px);
+    margin-bottom:8px;
+  }
+
+  /* ABOUT */
+  .about-grid{
+    display:grid; grid-template-columns:220px 1fr; gap:48px;
+    align-items:start; margin-top:32px;
+  }
+  .about-grid p{ color:#D6D5E0; font-size:16px; max-width:640px; }
+  .about-grid p + p{ margin-top:16px; }
+  .stack-list{ display:flex; flex-direction:column; gap:10px; }
+  .stack-list .stat{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px; color:var(--muted);
+    border-left:2px solid var(--violet);
+    padding-left:12px;
+  }
+  .stack-list .stat b{ color:var(--paper); display:block; font-size:20px; font-family:'Space Grotesk',sans-serif; }
+
+  /* WORK SUMMARY */
+  .work-summary{
+    margin-top:32px;
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:36px;
+    display:grid;
+    grid-template-columns:200px 1fr;
+    gap:36px;
+    align-items:center;
+  }
+  .work-stat{
+    display:flex; flex-direction:column;
+    border-right:1px solid var(--line);
+    padding-right:36px;
+  }
+  .work-stat b{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:56px; font-weight:700; line-height:1;
+    color:var(--violet);
+  }
+  .work-stat span{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px; color:var(--muted);
+    margin-top:8px;
+  }
+  .work-copy p{ color:#D6D5E0; font-size:16px; max-width:560px; margin-bottom:20px; }
+  @media (max-width:600px){
+    .work-summary{ grid-template-columns:1fr; padding:28px; }
+    .work-stat{ border-right:none; border-bottom:1px solid var(--line); padding-right:0; padding-bottom:20px; flex-direction:row; align-items:baseline; gap:12px; }
+  }
+
+  /* PROJECT / WORK */
+  .project-card{
+    margin-top:32px;
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:18px;
+    overflow:hidden;
+  }
+  .project-head{
+    padding:28px 32px 20px;
+    border-bottom:1px solid var(--line);
+    display:flex; justify-content:space-between; align-items:flex-start;
+    gap:24px; flex-wrap:wrap;
+  }
+  .project-head h3{ font-size:22px; margin-bottom:6px; }
+  .project-head p{ color:var(--muted); font-size:14.5px; max-width:520px; }
+  .project-badge{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px; color:var(--mint);
+    background:rgba(0,229,160,0.08);
+    border:1px solid rgba(0,229,160,0.25);
+    padding:5px 10px; border-radius:6px;
+    white-space:nowrap;
+  }
+
+  .project-body{
+    padding:28px 32px 32px;
+    display:grid;
+    grid-template-columns:1.1fr 0.9fr;
+    gap:36px;
+  }
+  @media (max-width:760px){
+    .project-body{ grid-template-columns:1fr; }
+    .about-grid{ grid-template-columns:1fr; }
+  }
+
+  .steps{ list-style:none; counter-reset:step; }
+  .steps li{
+    counter-increment:step;
+    position:relative;
+    padding-left:36px;
+    padding-bottom:20px;
+    font-size:14.5px;
+    color:#D6D5E0;
+  }
+  .steps li::before{
+    content:counter(step);
+    position:absolute; left:0; top:0;
+    width:22px; height:22px; border-radius:50%;
+    background:var(--surface-2);
+    border:1px solid var(--violet);
+    color:var(--violet);
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .steps li::after{
+    content:'';
+    position:absolute; left:11px; top:22px; bottom:0;
+    width:1px; background:var(--line);
+  }
+  .steps li:last-child::after{ display:none; }
+  .steps li:last-child{ padding-bottom:0; }
+
+  .stack-title, .feat-title{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px; color:var(--muted);
+    text-transform:uppercase; letter-spacing:0.06em;
+    margin-bottom:12px;
+  }
+  .chips{ display:flex; flex-wrap:wrap; gap:8px; margin-bottom:28px; }
+  .chip{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px; color:var(--paper);
+    background:var(--surface-2);
+    border:1px solid var(--line);
+    padding:6px 11px; border-radius:6px;
+  }
+  .feat-list{ list-style:none; display:flex; flex-direction:column; gap:10px; }
+  .feat-list li{
+    font-size:14px; color:#D6D5E0;
+    display:flex; align-items:flex-start; gap:10px;
+  }
+  .feat-list li::before{
+    content:'✓';
+    color:var(--mint); font-weight:600; flex-shrink:0;
+  }
+
+  /* CONTACT */
+  .contact-grid{
+    margin-top:32px;
+    display:grid; grid-template-columns:repeat(3, 1fr); gap:20px;
+  }
+  @media (max-width:820px){ .contact-grid{ grid-template-columns:1fr 1fr; } }
+  @media (max-width:600px){ .contact-grid{ grid-template-columns:1fr; } }
+  .endpoint.wa .method{ color:var(--whatsapp); }
+  .endpoint.wa .method .m-dot{ background:var(--whatsapp); }
+  .endpoint.wa:hover{ border-color:var(--whatsapp); }
+  .endpoint .wa-icon{ width:16px; height:16px; }
+  .endpoint{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:24px;
+    transition:border-color .2s, transform .2s;
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .endpoint:hover{ border-color:var(--violet); transform:translateY(-3px); }
+  .endpoint .method{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px; color:var(--ember);
+    display:flex; align-items:center; gap:8px;
+  }
+  .endpoint .method .m-dot{ width:6px; height:6px; border-radius:50%; background:var(--ember); }
+  .endpoint .value{ font-size:16px; font-weight:600; word-break:break-word; }
+  .endpoint .go{ font-size:13px; color:var(--muted); margin-top:auto; }
+
+  footer{
+    border-top:1px solid var(--line);
+    padding:32px 0;
+    text-align:center;
+    color:var(--muted);
+    font-size:13px;
+    font-family:'JetBrains Mono', monospace;
+  }
+
+  @media (max-width:820px){
+    .hero{ grid-template-columns:1fr; padding-top:56px; }
+    .cta-row{ flex-direction:column; align-items:flex-start; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    * { animation:none !important; transition:none !important; }
+  }
+
+  :focus-visible{ outline:2px solid var(--mint); outline-offset:2px; }
+
+  /* FLOATING WHATSAPP BUTTON */
+  .wa-float{
+    position:fixed; right:24px; bottom:24px; z-index:60;
+    width:56px; height:56px; border-radius:50%;
+    background:var(--whatsapp); color:#fff;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 8px 24px rgba(37,211,102,0.4);
+    transition:transform .15s;
+  }
+  .wa-float:hover{ transform:translateY(-3px) scale(1.05); }
+  .wa-float svg{ width:28px; height:28px; }
+  .wa-float::before{
+    content:''; position:absolute; inset:0; border-radius:50%;
+    background:var(--whatsapp); opacity:0.55;
+    animation:wa-pulse 2.2s ease-out infinite;
+  }
+  @keyframes wa-pulse{
+    0%{ transform:scale(1); opacity:0.55; }
+    100%{ transform:scale(1.8); opacity:0; }
+  }
+  @media (prefers-reduced-motion: reduce){ .wa-float::before{ animation:none; display:none; } }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="brand"><span class="dot"></span>Abdul Asim</div>
+    <div class="nav-links" id="navLinks">
+      <a href="#about">About</a>
+      <a href="#work">Work</a>
+      <a href="#contact">Contact</a>
+      <a class="nav-cta" href="mailto:abdulasim643@gmail.com">Email me</a>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navLinks">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<header class="wrap hero">
+  <div>
+    <span class="eyebrow">● available for automation projects</span>
+    <h1>I build the systems that run <span class="accent">while you don't.</span></h1>
+    <p class="sub">GoHighLevel & n8n specialist. I connect the tools your business already uses so leads, data, and follow-ups move on their own — no manual entry, no dropped leads.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="mailto:abdulasim643@gmail.com">Email me</a>
+      <a class="btn btn-ghost" href="https://www.linkedin.com/in/abdul-asim-b751153a3" target="_blank" rel="noopener">View LinkedIn</a>
+    </div>
+    <div class="status-strip">
+      <div class="metric"><b>0</b><span>manual steps</span></div>
+      <div class="metric"><b>24/7</b><span>workflows running</span></div>
+      <div class="metric"><b>&lt;2s</b><span>lead-to-CRM time</span></div>
+    </div>
+  </div>
+
+  <div class="flow-card">
+    <div class="label">
+      <span>workflow.json</span>
+      <span class="live"><span class="ldot"></span>running</span>
+    </div>
+    <svg class="flow-svg" viewBox="0 0 340 300" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="pathGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#7C5CFC"/>
+          <stop offset="100%" stop-color="#00E5A0"/>
+        </linearGradient>
+      </defs>
+
+      <!-- connecting path -->
+      <path d="M 70 45 L 70 105 L 270 105 L 270 165 L 70 165 L 70 225" 
+            stroke="#2A2A36" stroke-width="2" fill="none"/>
+      <path id="flowPath" d="M 70 45 L 70 105 L 270 105 L 270 165 L 70 165 L 70 225" 
+            stroke="url(#pathGrad)" stroke-width="2" fill="none"
+            stroke-dasharray="8 500" >
+        <animate attributeName="stroke-dashoffset" from="0" to="-508" dur="4s" repeatCount="indefinite"/>
+      </path>
+
+      <!-- traveling dot -->
+      <circle r="4" fill="#00E5A0">
+        <animateMotion dur="4s" repeatCount="indefinite" path="M 70 45 L 70 105 L 270 105 L 270 165 L 70 165 L 70 225"/>
+      </circle>
+
+      <!-- Node 1: Webhook -->
+      <rect x="30" y="25" width="80" height="40" rx="8" fill="#1E1E28" stroke="#7C5CFC" stroke-width="1.5"/>
+      <text x="70" y="42" class="flow-node-title">Webhook</text>
+      <text x="70" y="56" class="flow-node-label">trigger</text>
+
+      <!-- Node 2: Filter -->
+      <rect x="230" y="85" width="80" height="40" rx="8" fill="#1E1E28" stroke="#7C5CFC" stroke-width="1.5"/>
+      <text x="270" y="102" class="flow-node-title">Filter</text>
+      <text x="270" y="116" class="flow-node-label">fields</text>
+
+      <!-- Node 3: Sheets -->
+      <rect x="30" y="145" width="80" height="40" rx="8" fill="#1E1E28" stroke="#00E5A0" stroke-width="1.5"/>
+      <text x="70" y="162" class="flow-node-title">Sheets</text>
+      <text x="70" y="176" class="flow-node-label">store</text>
+
+      <!-- Node 4: GHL Tag -->
+      <rect x="230" y="145" width="80" height="40" rx="8" fill="#1E1E28" stroke="#00E5A0" stroke-width="1.5"/>
+      <text x="270" y="162" class="flow-node-title">GHL Tag</text>
+      <text x="270" y="176" class="flow-node-label">notify</text>
+
+      <!-- Node 5: Done -->
+      <rect x="30" y="205" width="80" height="40" rx="8" fill="#1E1E28" stroke="#FF5B33" stroke-width="1.5"/>
+      <text x="70" y="222" class="flow-node-title">Done</text>
+      <text x="70" y="236" class="flow-node-label">no manual entry</text>
+    </svg>
+  </div>
+</header>
+
+<section id="about" class="reveal">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-tag">// about</span>
+      <h2>Built for businesses that outgrew manual work</h2>
+    </div>
+    <div class="about-grid">
+      <div class="stack-list">
+        <div class="stat"><b>n8n</b>workflow engine</div>
+        <div class="stat"><b>GHL</b>CRM & automation</div>
+        <div class="stat"><b>REST</b>API integrations</div>
+      </div>
+      <div>
+        <p>I help businesses eliminate manual work by building smart, connected automation systems using n8n, GoHighLevel, and REST APIs. From automated lead capture to real-time CRM syncing, I design workflows that save time, reduce errors, and let teams focus on growth instead of data entry.</p>
+        <p>I'm continuously exploring AI automation, API integrations, and CRM systems to build practical solutions that help businesses scale efficiently.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="work" class="reveal">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-tag">// work</span>
+      <h2>Work delivered</h2>
+    </div>
+
+    <div class="work-summary">
+      <div class="work-stat">
+        <b>5+</b>
+        <span>projects delivered</span>
+      </div>
+      <div class="work-copy">
+        <p>Built and shipped automation systems for dental clinics and many other businesses — connecting forms, CRMs, and sheets so leads move on their own, with zero manual entry.</p>
+        <div class="chips">
+          <span class="chip">Dental clinics</span>
+          <span class="chip">Local service businesses</span>
+          <span class="chip">Real estate</span>
+          <span class="chip">E-commerce</span>
+          <span class="chip">+ many more</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="reveal">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-tag">// contact</span>
+      <h2>Let's connect your systems</h2>
+    </div>
+    <div class="contact-grid">
+      <a class="endpoint" href="mailto:abdulasim643@gmail.com">
+        <span class="method"><span class="m-dot"></span>EMAIL</span>
+        <span class="value">abdulasim643@gmail.com</span>
+        <span class="go">Send a message →</span>
+      </a>
+      <a class="endpoint" href="https://www.linkedin.com/in/abdul-asim-b751153a3" target="_blank" rel="noopener">
+        <span class="method"><span class="m-dot"></span>LINKEDIN</span>
+        <span class="value">in/abdul-asim-b751153a3</span>
+        <span class="go">View profile →</span>
+      </a>
+      <a class="endpoint wa" href="https://wa.me/923115140237" target="_blank" rel="noopener">
+        <span class="method">
+          <svg class="wa-icon" viewBox="0 0 32 32" fill="#25D366" xmlns="http://www.w3.org/2000/svg">
+            <path d="M16.001 3C9.373 3 4 8.373 4 15c0 2.383.7 4.6 1.902 6.463L4 29l7.72-1.862A11.93 11.93 0 0 0 16.001 27C22.628 27 28 21.627 28 15S22.628 3 16.001 3Zm0 21.818a9.77 9.77 0 0 1-4.98-1.363l-.357-.212-4.583 1.106 1.127-4.463-.233-.367A9.78 9.78 0 0 1 6.182 15c0-5.421 4.398-9.818 9.819-9.818 5.42 0 9.818 4.397 9.818 9.818 0 5.42-4.398 9.818-9.818 9.818Zm5.383-7.352c-.294-.147-1.74-.858-2.01-.956-.27-.098-.466-.147-.663.147-.196.294-.76.956-.932 1.152-.172.196-.343.22-.637.073-.294-.147-1.243-.458-2.367-1.46-.875-.78-1.466-1.744-1.638-2.038-.172-.294-.018-.453.129-.6.132-.132.294-.343.44-.514.147-.172.196-.294.294-.49.098-.196.049-.368-.024-.514-.073-.147-.663-1.6-.909-2.19-.24-.577-.484-.499-.663-.508l-.565-.01c-.196 0-.514.073-.784.368-.27.294-1.03 1.007-1.03 2.456 0 1.45 1.055 2.85 1.202 3.046.147.196 2.077 3.17 5.032 4.446.703.303 1.251.484 1.679.62.705.224 1.347.192 1.855.117.566-.085 1.74-.712 1.985-1.4.245-.688.245-1.278.172-1.4-.073-.123-.269-.196-.563-.343Z"/>
+          </svg>
+          WHATSAPP
+        </span>
+        <span class="value">+92 311 5140237</span>
+        <span class="go">Chat now →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">© 2026 Abdul Asim — GoHighLevel & n8n Automation</div>
+</footer>
+
+<a class="wa-float" href="https://wa.me/923115140237" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+  <svg viewBox="0 0 32 32" fill="#fff" xmlns="http://www.w3.org/2000/svg">
+    <path d="M16.001 3C9.373 3 4 8.373 4 15c0 2.383.7 4.6 1.902 6.463L4 29l7.72-1.862A11.93 11.93 0 0 0 16.001 27C22.628 27 28 21.627 28 15S22.628 3 16.001 3Zm0 21.818a9.77 9.77 0 0 1-4.98-1.363l-.357-.212-4.583 1.106 1.127-4.463-.233-.367A9.78 9.78 0 0 1 6.182 15c0-5.421 4.398-9.818 9.819-9.818 5.42 0 9.818 4.397 9.818 9.818 0 5.42-4.398 9.818-9.818 9.818Zm5.383-7.352c-.294-.147-1.74-.858-2.01-.956-.27-.098-.466-.147-.663.147-.196.294-.76.956-.932 1.152-.172.196-.343.22-.637.073-.294-.147-1.243-.458-2.367-1.46-.875-.78-1.466-1.744-1.638-2.038-.172-.294-.018-.453.129-.6.132-.132.294-.343.44-.514.147-.172.196-.294.294-.49.098-.196.049-.368-.024-.514-.073-.147-.663-1.6-.909-2.19-.24-.577-.484-.499-.663-.508l-.565-.01c-.196 0-.514.073-.784.368-.27.294-1.03 1.007-1.03 2.456 0 1.45 1.055 2.85 1.202 3.046.147.196 2.077 3.17 5.032 4.446.703.303 1.251.484 1.679.62.705.224 1.347.192 1.855.117.566-.085 1.74-.712 1.985-1.4.245-.688.245-1.278.172-1.4-.073-.123-.269-.196-.563-.343Z"/>
+  </svg>
+</a>
+
+<script>
+  // mobile nav toggle
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  navToggle.addEventListener('click', () => {
+    const isOpen = navLinks.classList.toggle('open');
+    navToggle.classList.toggle('open', isOpen);
+    navToggle.setAttribute('aria-expanded', isOpen);
+  });
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    navLinks.classList.remove('open');
+    navToggle.classList.remove('open');
+    navToggle.setAttribute('aria-expanded', false);
+  }));
+
+  // scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    revealEls.forEach(el => io.observe(el));
+  } else {
+    revealEls.forEach(el => el.classList.add('is-visible'));
+  }
+</script>
+
+</body>
+</html>
